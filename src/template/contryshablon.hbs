@@ -1,16 +1,16 @@
-{{#each conries}}
+{{#each value}}
 <li class="card">
     <a class="card__country" href="#">
         <div class="card__description">
-            {{!-- <picture>
-                <img class="card__img" src="" alt="{{name}}" width="1200" height="294" />
-            </picture> --}}
+            <picture>
+                <img class="card__img" src="{{flags.svg}}" alt="{{name}}" width="1200" height="294" />
+            </picture>
         </div>
         <div class="card__bottom">
             <h2 class="card__contry">{{name}}</h2>
-            <p class="card__category">Столиця{{capital}}</p>
-            {{!-- <p class="card__category">Мова{{languages}}</p>
-            <p class="card__category">Населення{{languages}}</p> --}}
+            <p class="card__category">Столиця<span>{{capital}}</span></p>
+            <p class="card__category">Мова{{#each languages}}<span>{{name}}</span>{{/each}}</p>
+            <p class="card__category">Населення<span>{{population}}</span></p>
         </div>
     </a>
 </li>

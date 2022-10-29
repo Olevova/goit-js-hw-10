@@ -3,17 +3,25 @@ import contryTemple from './template/contryshablon.hbs';
 import hbs from "handlebars";
 
 import fetchCountries from "./fetchCountries";
-// console.log(contryTemple);
-// console.log(fetchCountries);
-// fetchCountries('k').then(d => console.log(d.map((i)=>console.log(i))));
-fetchCountries('us').then(conries => render(conries)).catch(er => console.log(er))
-const el = ele => document.querySelector(ele);
 
-function render(conries) {
-    console.log(conries);
-    const card = contryTemple({conries});
+
+const eleCreator = ele => document.querySelector(ele);
+
+fetchCountries('uk').then(value => render(value)).catch(error => console.log(error))
+
+eleCreator('#search-box').addEventListener('input', all);
+
+function all(e){
+    let nameCountry = e.target.value;
+    console.log(nameCountry);
+    fetchCountries(nameCountry).then(value => render(value)).catch(error => console.log(error))
+}
+
+function render(value) {
+    console.log(value);
+    const card = contryTemple({value});
     console.log(card);
-    el('.country-info').insertAdjacentHTML("beforeend", card);
+    eleCreator('.country-info').insertAdjacentHTML("beforeend", card);
 }
 
 // const conries = [
