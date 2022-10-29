@@ -1,0 +1,14 @@
+{{#each value}}
+<li class="card">
+    <a class="card__country" href="#">
+        <div class="card__description">
+            <picture>
+                <img class="card__img" src="{{flags.svg}}" alt="{{name}}" width="1200" height="294" />
+            </picture>
+        </div>
+        <div class="card__bottom">
+            <h2 class="card__contry">{{name}}</h2>
+        </div>
+    </a>
+</li>
+{{/each}}
