@@ -11,33 +11,31 @@ const DEBOUNCE_DELAY = 300;
 
 const eleCreator = ele => document.querySelector(ele);
 
-// fetchCountries('uk').then(value => render(value)).catch(error => console.log(error))
-
+// вішаємо слухача на ввід
 eleCreator('#search-box').addEventListener('input', debounce(allResult,DEBOUNCE_DELAY));
 
+// функція яка видає остаточний результат після запиту та рендерінгу
 function allResult(e){
     let nameCountry = trim(e.target.value);
-    console.log(nameCountry, nameCountry.length);
+    // console.log(nameCountry, nameCountry.length);
     if(nameCountry.length > 0)
         fetchCountries(nameCountry).then(value => render(value)).catch( error => Notiflix.Notify.warning('Oops, there is no country with that name'))
     else {
         eleCreator('.country-info').innerHTML = '';
     }
 }
-
+// функція яка рендерить сторінку по отриманим данним
 function render(value) {
-    console.log(value);
+    // console.log(value);
     if (value.length > 2 && 10 > value.length) {
-        console.log(1111);
         const card = contryMany({ value });
         return eleCreator('.country-info').innerHTML = card;
     }
     else if (value.length === 1) {
         const card = contryTemple({ value });
-        console.log(card);
+        // console.log(card);
         return eleCreator('.country-info').innerHTML = card;
     }
-    // eleCreator('.country-info').insertAdjacentHTML("beforeend", card)
     else {
         Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
         eleCreator('.country-info').innerHTML = '';
