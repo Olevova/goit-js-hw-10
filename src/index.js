@@ -1,22 +1,25 @@
 import './css/styles.css';
 import contryTemple from './template/contryshablon.hbs';
-import contryMany from './template/manycountry.hbs'
-import Notiflix from 'notiflix';
-
+import contryMany from './template/manycountry.hbs';
 import fetchCountries from "./fetchCountries";
 
+import Notiflix from 'notiflix';
+import debounce from 'lodash.debounce';
+import { trim } from 'lodash';
+
+const DEBOUNCE_DELAY = 300;
 
 const eleCreator = ele => document.querySelector(ele);
 
 // fetchCountries('uk').then(value => render(value)).catch(error => console.log(error))
 
-eleCreator('#search-box').addEventListener('input', all);
+eleCreator('#search-box').addEventListener('input', debounce(allResult,DEBOUNCE_DELAY));
 
-function all(e){
-    let nameCountry = e.target.value;
+function allResult(e){
+    let nameCountry = trim(e.target.value);
     console.log(nameCountry, nameCountry.length);
     if(nameCountry.length > 0)
-        fetchCountries(nameCountry).then(value => render(value)).catch(error => console.log(error))
+        fetchCountries(nameCountry).then(value => render(value)).catch( error => Notiflix.Notify.warning('Oops, there is no country with that name'))
     else {
         eleCreator('.country-info').innerHTML = '';
     }
@@ -40,15 +43,3 @@ function render(value) {
         eleCreator('.country-info').innerHTML = '';
     }
 }
-
-// const conries = [
-//     { name: 'Ukraine', capital: 'Kyiv', population: 44134693 },
-//     { name: 'Cook Islands', capital: 'Avarua', population: 18100 }
-// ]
-
-// const ttt = JSON.stringify(conries);
-// console.log({conries});
-// console.log(contryTemple({conries}));
-
-// render(ttt)
-const DEBOUNCE_DELAY = 300;
